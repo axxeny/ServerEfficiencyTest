@@ -6,13 +6,13 @@ using Common;
 
 namespace Clients
 {
-    class TcpConsumer
+    internal class TcpConsumer
     {
         public static async Task ConsumeAllAsync()
         {
             var clientTasks = Enumerable
-                .Range(0, Constants.ClientCount)
-                .Select(_ => new TcpClient())
+                .Repeat((byte)0, Constants.ClientCount)
+                .Select(_=>new TcpClient())
                 .Select(client => ConsumeOneAsync(client, Constants.IpAddress, Constants.TcpPort))
                 .ToArray();
             await Task.WhenAll(clientTasks);

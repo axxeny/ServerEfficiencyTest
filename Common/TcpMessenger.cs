@@ -30,8 +30,11 @@ namespace Common
             do
             {
                 var buffer = new byte[1];
-                await stream.ReadAsync(buffer, 0, 1);
-                incomingBytes.Add(buffer[0]);
+                var count = await stream.ReadAsync(buffer, 0, 1);
+                if (count >= 1)
+                {
+                    incomingBytes.Add(buffer[0]);
+                }
             } while (IsReadingShouldContinue(incomingBytes));
             var actual = Encoding.UTF8.GetString(incomingBytes.ToArray());
             if (actual != expectedMessage)
@@ -43,19 +46,25 @@ namespace Common
         public static void ErrorWrongMessage(string actual)
         {
             throw new ServerEfficiencyTestException(
-                $"Присланное сообщение не соответствует ожидаемому. Присланное сообщение: \"{actual}\"");
+                $"Присланное сообщение не соответствует ожидаемому. Присланное сообщение: \"{actual}\".");
         }
 
         public static void ErrorConnectionReset(string actual)
         {
             throw new ServerEfficiencyTestException(
-                $"Соединение разорвано. Успевшие прийти символы: \"{actual}\"");
+                $"Соединение разорвано. Успевшие прийти символы: \"{actual}\".");
         }
 
         public static bool IsReadingShouldContinue(IReadOnlyList<byte> incomingBytes)
         {
             var count = incomingBytes.Count;
             return count < 4 || incomingBytes[count - 4] != 'O' || incomingBytes[count - 3] != 'V' || incomingBytes[count - 2] != 'E' || incomingBytes[count - 1] != 'R';
+        }
+
+        public static void ErrorTooLong(long actualCount, long expectedCount)
+        {
+            throw new ServerEfficiencyTestException(
+                $"Пришло слишком длинное сообщение. Длина сообщения: {actualCount}, ожидавшаяся длина: {expectedCount}.");
         }
     }
 }

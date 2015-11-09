@@ -9,9 +9,9 @@ using Common;
 
 namespace ServerEfficiencyTest
 {
-    class UdpServer
+    internal class UdpServer
     {
-        static int _sent;
+        private static int _sent;
 
         public static async Task ServeAsync(UdpClient server)
         {

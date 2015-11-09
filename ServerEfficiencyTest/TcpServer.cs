@@ -4,7 +4,7 @@ using Common;
 
 namespace ServerEfficiencyTest
 {
-    class TcpServer
+    internal class TcpServer
     {
         public static async Task ProcessAsync(TcpListener server)
         {

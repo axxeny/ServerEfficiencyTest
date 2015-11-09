@@ -8,6 +8,10 @@ namespace Common
         public static readonly IPAddress IpAddress = IPAddress.Parse("127.0.0.1");
         public const int UdpPort = 40001;
         public const int TcpPort = 40002;
+        public const int WebSocketPort = 40003;
+        public const int SignalRPort = 40004;
+        public const int LongPollingPort = 40005;
+        public const int HttpPort = 40006;
         public const string ServerToClient = @"This is Ground Control to Major Tom
 You've really made the grade
 And the papers want to know whose shirts you wear

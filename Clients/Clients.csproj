@@ -55,10 +55,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="ClientProgram.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TcpConsumer.cs" />
     <Compile Include="UdpConsumer.cs" />
+    <Compile Include="HttpConsumer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
